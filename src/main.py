@@ -1,16 +1,36 @@
 # Resolve the problem!!
 import string
+from random import randint, uniform, random
 
 SYMBOLS = list('!"#$%&\'()*+,-./:;?@[]^_`{|}~')
+MIN = 8
+MAX = 15
+CARACTER = list('aA0S')
 
 
 def generate_password():
-    # Start coding here
+    # 97 - 122 az
+    # 65 - 90 AZ
+    # 48 - 57 09
+    # 0-27 SYMBOLS
+    total_caracteres = randint(MIN, MAX)
+    password_ = ""
+    for i in range(total_caracteres):
+        eleccion = CARACTER[randint(0, 3)]
+        if eleccion == 'a':
+            password_ += string.ascii_lowercase[randint(0, 25)]
+        elif eleccion == 'A':
+            password_ += string.ascii_uppercase[randint(0, 25)]
+        elif eleccion == '0':
+            password_ += string.digits[randint(0, 9)]
+        elif eleccion == 'S':
+            password_ += SYMBOLS[randint(0, 24)]
+    print(password_)
+    return password_
 
 
 def validate(password):
-
-    if len(password) >= 8 and len(password) <= 16:
+    if 8 <= len(password) <= 16:
         has_lowercase_letters = False
         has_numbers = False
         has_uppercase_letters = False
@@ -42,8 +62,7 @@ def validate(password):
 
 
 def run():
-    password = generate_password()
-    if validate(password):
+    if validate(generate_password()):
         print('Secure Password')
     else:
         print('Insecure Password')
